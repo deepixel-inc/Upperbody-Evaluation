@@ -143,8 +143,6 @@ def compute_iou(true_mask: np.ndarray, pred_mask: np.ndarray) -> float:
     union = np.sum(np.logical_or(true_label, true_class))
 
     iou = intersection / union if union > 0 else 0
-
-    iou = round(iou * 100, 2)
     
     return iou
 
@@ -172,9 +170,6 @@ def compute_biou(true_mask: np.ndarray, pred_mask: np.ndarray, thickness=15) -> 
         Boundary Intersection over Union score, rounded to 2 decimal places.
         
     """
-    height, width = pred_mask.shape[:2]
-    true_mask = cv2.resize(true_mask, (width, height))
-
     true_boundaries = extract_boundary(true_mask, thickness=thickness)
     pred_boundaries = extract_boundary(pred_mask, thickness=thickness)
     
@@ -209,9 +204,6 @@ def compute_boundary_f1(true_mask: np.ndarray, pred_mask: np.ndarray, thickness=
         Boundary F1 score, rounded to 2 decimal places.
         
     """
-    height, width = pred_mask.shape[:2]
-    true_mask = cv2.resize(true_mask, (width, height))
-    
     true_boundaries = extract_boundary(true_mask, thickness=thickness)
     pred_boundaries = extract_boundary(pred_mask, thickness=thickness)
     
@@ -220,7 +212,6 @@ def compute_boundary_f1(true_mask: np.ndarray, pred_mask: np.ndarray, thickness=
     
     # Calculate F1 score
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
-    f1 = round(f1 * 100, 2)
     
     return f1
 
@@ -305,6 +296,7 @@ if __name__ == "__main__":
     pred_mask_paths = ["path/to/pred1.png", "path/to/pred2.png"]
     
     miou, mean_bd_f1, mean_biou = compute_metrics(gt_paths, pred_mask_paths)
+    miou, mean_bd_f1, mean_biou = round(miou * 100, 2), round(mean_bd_f1 * 100, 2), round(mean_biou * 100, 2)
     
     print(f"Mean IoU: {miou:.2f}%")
     print(f"Mean Boundary F1: {mean_bd_f1:.2f}%")
