@@ -9,7 +9,7 @@
 2. [Arguments](#2-arguments-인자-상세-정보-)
 3. [Data Format](#3-data-format-데이터-형식-가이드-)
 4. [Directory Structure](#4-directory-structure--권장-디렉토리-구조)
-5. [SDK Specification](#5-sdk-specification-)
+
 ---
 
 ## 1. Quick Start ⚡
@@ -106,57 +106,3 @@ project_root/
 └── compute_seg_metrics.py  # compute_metrics를 실행하는 메인 스크립트
 ```
 ---
-
-<br>
-
-
-## 5. SDK Specification 📋
-<div style="border: 1px solid #e1e4e8; border-radius: 12px; padding: 20px; background-color: #0084ff00; line-height: 1.6;">
-<div align="right">ver.202604 | DEEPIXEL</div>
-
-## **DEEPIXEL VISION SDK**
-### **>> Upperbody Segmentation SDK**
-
-- Fast and accurate segmentation of the human upper body in real-time video streams.
-- Robust algorithms against complex backgrounds, motion blurs, and light changes.
-- Able to precisely extract and track upper body regions seamlessly in photos and video streaming.
-- Applicable solutions across industries: Virtual backgrounds for video conferencing, portrait mode (background blur), AR try-on, live streaming, and photo editing.
-
-<br>
-
-### **TECHNICAL SPECIFICATION**
-### **1. Performance Specification**
-| Phone Model | Year of release | CPU Name | CPU Freq [MHz] | Cores | Tier | Target [ms] | Target CPU Usage [%] | Inference Time [ms] | CPU <br> Usage [%] |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Samsung Galaxy S9 | 2018 | Exynos 9810 | 2700 | 8 | Android-Low | 20 | 10 | 7~8 (-13) | 2.75 (-7.25) |
-| Samsung Galaxy A52s | 2021 | Snapdragon 778G | 2400 | 8 | Android-Mid | 9 | 4 | 8.15 (-0.85) | 3.04 (-0.96) |
-| Samsung Galaxy Fold3 | 2021 | Snapdragon 888 | 2800 | 8 | Android-High | 5 | 4 | 4.99 (-0.01) | 1.86 (-2.14) |
-| Samsung Galaxy S22 | 2022 | Snapdragon 8 Gen 1 | 3000 | 8 | Android-High | 5 | 4 | 4.25 (-0.75) | 1.58 (-2.42) |
-| iPhone 6s | 2015 | A9 | 1840 | 2 | iOS-Low | 15 | 20 | 12~13 (-3) | 19.5~20.5 (-0.5) |
-| iPhone XS | 2018 | A12 Bionic | 2490 | 6 | iOS-Mid | 7 | 4 | 5.55 (-1.45) | 3~4 (-1) |
-| iPhone 14 Pro | 2022 | A16 Bionic | 3460 | 6 | iOS-High | 5 | 4 | 3.09 (-1.91) | 1.8 (-2.2) |
-
-\* **GPU Usage: 0(%)** (GPU not used)
-
----
-### **2. Model Specification**
-#### **2.1. Accuracy Performance**
-| Category | Metric | Value | Description |
-| :--- | :--- | :--- | :--- |
-| **Accuracy / Stability** | Mean IoU<br>Mean Boundary F1<br>Mean Boundary IoU | <div align="center">**85.23%**<br>**88.19%**<br>**80.93%**</div> | PP-HumanSeg14K dataset (2,398장) |
-| **Accuracy / Stability** | Mean IoU<br>Mean Boundary F1<br>Mean Boundary IoU | <div align="center">**96.87%**<br>**97.19%**<br>**88.77%**</div> | EasyPortrait dataset (3,939장) |
-| **Accuracy / Stability** | Mean IoU<br>Mean Boundary F1<br>Mean Boundary IoU | <div align="center">**95.67%**<br>**94.78%**<br>**83.23%**</div> | EG1800 dataset (1,707장) |
-
-
-#### **2.2. SDK & Model Size**
-| Category | Value | Uncompressed Details |
-| :--- | :--- | :--- |
-| <div align="center">**SDK Size**</div> | **Compressed**<br>└ 5.5 MB<br><br>**Uncompressed**<br>└ 13.9 MB | ├─ `sdk.so` [12.1 MB]<br>│&nbsp;&nbsp;&nbsp;&nbsp;*(includes opencv/tensorflowlite/c code)*<br>├─ `C++_shared.so` [1.0 MB]<br>└─ `model_file.tflite` [800 KB] |
-
----
-
-### **3. Key Features**
-- **Accuracy Value:** [0, 1] (Consistency between the predicted upper-body area and the ground truth.)
-- **Segmentation Coverage:** Upper Body, Clothing, Shoulder & Arms, Background Exclusion
-- **Multi-person:** Capable
-- **Supported Platforms:** iOS, Android
