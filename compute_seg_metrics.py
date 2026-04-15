@@ -251,8 +251,11 @@ def compute_metrics(gt_paths: list[str], pred_mask_paths: list[str]) -> tuple[fl
         
         # 알파 채널 처리
         if len(pred_mask.shape) == 3 and pred_mask.shape[2] == 4:  # BGRA
-            sample = cv2.cvtColor(pred_mask[:, :, :3], cv2.COLOR_BGR2GRAY)
-            sample = np.where(sample > 0, 1, 0)
+            # sample = cv2.cvtColor(pred_mask[:, :, :3], cv2.COLOR_BGR2GRAY)
+            sample = pred_mask[:, :, 3]  # 알파 채널 사용
+            sample = 255 - sample  # 알파 채널이 0인 부분이 배경이므로 반전
+            # sample = np.where(sample > 0, 1, 0)
+            sample = np.where(sample >= 35, 1, 0) # PP-HumanSeg, EG1800, EasyPortrait 기준으로 35 이상을 foreground로 간주
             pred_mask = sample.astype(np.uint8)
 
         else:
